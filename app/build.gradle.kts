@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("kotlin-android")
 }
 
 android {
@@ -47,4 +49,16 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    dependencies {
+        // Room 라이브러리 추가
+        implementation("androidx.room:room-runtime:2.6.1")
+        kapt("androidx.room:room-compiler:2.6.1")
+
+        // Kotlin Coroutine 지원 추가
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+
+        // Room과 Coroutine 지원을 위한 추가 라이브러리
+        implementation("androidx.room:room-ktx:2.6.1")
+    }
+
 }

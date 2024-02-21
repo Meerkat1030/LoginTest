@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".MyApplication"
+
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,12 +25,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
-            <!-- 필요한 인텐트 필터 등을 여기에 추가할 수 있습니다. -->
         </activity>
         <activity android:name=".RegisterActivity">
-            <!-- 필요한 인텐트 필터 등을 여기에 추가할 수 있습니다. -->
         </activity>
 
     </application>
+
+
 
 </manifest>
