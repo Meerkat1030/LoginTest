@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -46,8 +47,11 @@ class MainActivity : AppCompatActivity() {
                     // id와 password 일치시
                     if (checkUser != null) {
                         // 로그인 상태를 SharedPreferences에 저장
+                        val userNick = userRepository.getUserNickname(user)
                         sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
-                        sharedPreferences.edit().putString("username", user).apply()
+                        sharedPreferences.edit().putString("username", userNick).apply()
+                        sharedPreferences.edit().putString("userId", user).apply()
+                        Log.d("전송하는 id", "$user")
                         // 프로필 사진을 데이터베이스에서 가져와서 URI로 저장
                         val profileImageUri = userRepository.getProfileImageUri(user)
                         sharedPreferences.edit().putString("profileImageUri", profileImageUri).apply()

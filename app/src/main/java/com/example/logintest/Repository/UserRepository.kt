@@ -1,6 +1,7 @@
 package com.example.logintest.Repository
 
 import android.content.Context
+import android.net.Uri
 import androidx.room.Room
 import com.example.logintest.Database.AppDatabase
 import com.example.logintest.Entity.User
@@ -29,8 +30,30 @@ class UserRepository(context: Context) {
     suspend fun getUserByIdAndPassword(id: String, password: String): User? {
         return userDao.getUserByIdAndPassword(id, password)
     }
+    suspend fun getProfileImageUri(userId: String): String? {
+        return userDao.getProfileImageUri(userId)
+    }
 
-    suspend fun getProfileImageUri(username: String): String? {
-        return userDao.getProfileImageUri(username)
+//    suspend fun updateNickname(id: String, newNickname: String) {
+//        userDao.updateNickname(id, newNickname)
+//    }
+suspend fun updateNickname(id: String, newNickname: String) {
+    userDao.updateNickname(id, newNickname)
+}
+
+    suspend fun updateProfileUri(id: String, newProfileUri: String) {
+        userDao.updateProfileUri(id, newProfileUri)
+    }
+
+    suspend fun updateNicknameAndProfileUri(id: String, newNickname: String, newProfileUri: String) {
+        userDao.updateNicknameAndProfileUri(id, newNickname, newProfileUri)
+    }
+
+    suspend fun getUserNickname(id: String): String {
+        return userDao.getUserNickname(id)
+    }
+
+    suspend fun getUserIdByNick(nick: String): String? {
+        return userDao.getUserIdByNick(nick)
     }
 }
