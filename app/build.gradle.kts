@@ -35,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    viewBinding{
+        enable = true
+    }
 
 
 }
@@ -60,5 +63,7 @@ dependencies {
         // Room과 Coroutine 지원을 위한 추가 라이브러리
         implementation("androidx.room:room-ktx:2.6.1")
     }
+
+//    implementation("com.github.bumptech.glide:glide:4.13.2")
 
 }

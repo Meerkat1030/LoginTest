@@ -3,16 +3,23 @@ package com.example.logintest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
+
 import com.example.logintest.Repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.io.File
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var textViewWelcomeMessage: TextView
@@ -65,15 +72,24 @@ class HomeActivity : AppCompatActivity() {
                 val profileUriString = userRepository.getProfileImageUri(username!!)
                 launch(Dispatchers.Main) {
                     if (!profileUriString.isNullOrEmpty()) {
-                        val profileUri = Uri.parse(profileUriString)
-                        imageViewProfile.setImageURI(profileUri)
-                        imageViewProfile.visibility = ImageView.VISIBLE
+                        try {
+                            val profileUri = Uri.parse(profileUriString)
+                            val file = File(profileUri.path) // URI를 파일 객체로 변환
+                            val fileUri = FileProvider.getUriForFile(applicationContext, "${applicationContext.packageName}.fileprovider", file)
+                            imageViewProfile.setImageURI(fileUri)
+                            imageViewProfile.visibility = ImageView.VISIBLE
+                        } catch (e: Exception) {
+                            // URI 파싱 중 오류가 발생한 경우 이미지 뷰를 숨깁니다.
+                            imageViewProfile.visibility = ImageView.GONE
+                            e.printStackTrace()
+                        }
                     } else {
                         // 프로필 이미지 URI가 없는 경우 이미지 뷰를 숨깁니다.
                         imageViewProfile.visibility = ImageView.GONE
                     }
                 }
             }
+
 
 
         } else {
